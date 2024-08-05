@@ -13,5 +13,6 @@ namespace backend.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<Scent> Scents { get; set; }
+        public DbSet<Season> Seasons { get; set; }
     }
 }
