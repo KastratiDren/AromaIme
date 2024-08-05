@@ -9,5 +9,6 @@ namespace backend.Data
 
         //Database Tabels
         public DbSet<Fragrance> Fragrances { get; set; }
+        public DbSet<Brand> Brands { get; set; }
     }
 }

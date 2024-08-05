@@ -6,6 +6,7 @@ namespace backend.Models
     public class Fragrance
     {
         public int Id { get; set; }
+
         [Required]
         [StringLength(35, MinimumLength = 3 , ErrorMessage = "Name must be between 3 and 35 characters.")]
         public string Name { get; set; } = string.Empty;
