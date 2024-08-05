@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.Extensions.Logging;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace backend.Models
@@ -35,6 +36,36 @@ namespace backend.Models
         [Required]
         [StringLength(300, MinimumLength = 75, ErrorMessage = "Fragance ingredients must be between 75 and 300 characters.")]
         public string Ingredients { get; set; } = string.Empty;
+
+        //Foreign Keys
+
+        public int BrandId { get; set; }
+        [ForeignKey("BrandId")]
+        public Brand Brand { get; set; } = null!;
+
+        public int CategoryId { get; set; }
+        [ForeignKey("CategoryId")]
+        public Category Category { get; set; } = null!;
+
+        public int GenderId { get; set; }
+        [ForeignKey("GenderId")]
+        public Gender Gender { get; set; } = null!;
+
+        public int LongevityId { get; set; }
+        [ForeignKey("LongevityId")]
+        public Longevity Longevity { get; set; } = null!;
+
+        public int ScentId { get; set; }
+        [ForeignKey("ScentId")]
+        public Scent Scent { get; set; } = null!;
+
+        public int SeasonId { get; set; }
+        [ForeignKey("SeasonId")]
+        public Season Season { get; set; } = null!;
+
+        public int SillageId { get; set; }
+        [ForeignKey("SillageId")]
+        public Sillage Sillage { get; set; } = null!;
 
     }
 }
