@@ -19,5 +19,22 @@ namespace backend.Models
         [Range(2.50, 1000.00, ErrorMessage = "Fragrance price must be between 2.50 and 1000.00.")]
         [Column(TypeName = "decimal(6,2)")]
         public decimal Price { get; set; }
+
+        [Required]
+        [StringLength(75, MinimumLength = 20, ErrorMessage = "Fragance notes must be between 20 and 75 characters.")]
+        public string Notes { get; set; } = string.Empty;
+
+        [Required]
+        [Range(2, 200, ErrorMessage = "Fragrance size must be between 2 and 200.")]
+        public int Size { get; set; }
+
+        [Required]
+        [Display(Name = "Launch Date")]
+        public DateOnly LaunchDate { get; set; }
+
+        [Required]
+        [StringLength(300, MinimumLength = 75, ErrorMessage = "Fragance ingredients must be between 75 and 300 characters.")]
+        public string Ingredients { get; set; } = string.Empty;
+
     }
 }
