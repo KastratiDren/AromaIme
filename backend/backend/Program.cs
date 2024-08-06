@@ -20,6 +20,7 @@ builder.Services.AddScoped<SeasonService>();
 builder.Services.AddScoped<SillageService>();
 builder.Services.AddScoped<ScentService>();
 builder.Services.AddScoped<GenderService>();
+builder.Services.AddScoped<LongevityService>();
 
 
 var app = builder.Build();
