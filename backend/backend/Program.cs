@@ -13,12 +13,14 @@ builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddAutoMapper(typeof(Program));
 
-//Add custom service to the container.
+//Add custom services to the container.
 builder.Services.AddScoped<BrandService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<SeasonService>();
 builder.Services.AddScoped<SillageService>();
 builder.Services.AddScoped<ScentService>();
+builder.Services.AddScoped<GenderService>();
+
 
 var app = builder.Build();
 
