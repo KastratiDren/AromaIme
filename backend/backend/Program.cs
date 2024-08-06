@@ -18,6 +18,7 @@ builder.Services.AddScoped<BrandService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<SeasonService>();
 builder.Services.AddScoped<SillageService>();
+builder.Services.AddScoped<ScentService>();
 
 var app = builder.Build();
 
