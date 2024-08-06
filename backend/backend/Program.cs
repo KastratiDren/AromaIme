@@ -16,6 +16,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 //Add custom service to the container.
 builder.Services.AddScoped<BrandService>();
 builder.Services.AddScoped<CategoryService>();
+builder.Services.AddScoped<SeasonService>();
 
 var app = builder.Build();
 
