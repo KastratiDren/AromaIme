@@ -17,6 +17,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.AddScoped<BrandService>();
 builder.Services.AddScoped<CategoryService>();
 builder.Services.AddScoped<SeasonService>();
+builder.Services.AddScoped<SillageService>();
 
 var app = builder.Build();
 
