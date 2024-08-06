@@ -19,20 +19,16 @@ namespace backend.Services
         public async Task<List<BrandDTO>> GetAllAsync()
         {
             var brands =  await _context.Brands.ToListAsync();
-            var brandsDTO = _mapper.Map<List<BrandDTO>>(brands);
-            return brandsDTO;
+            return _mapper.Map<List<BrandDTO>>(brands);
         }
 
         public async Task<BrandDTO?> GetAsync(int id)
         {
             var brand = await _context.Brands.FindAsync(id);
             if (brand == null)
-            {
                 return null;
-            }
 
-            var brandDTO = _mapper.Map<BrandDTO>(brand);
-            return brandDTO;
+            return _mapper.Map<BrandDTO>(brand);
         }
 
         public async Task<BrandDTO> CreateAsync(BrandDTO brandDTO)
