@@ -64,7 +64,7 @@ namespace backend.Services
 
         public async Task<bool> ExistsAsync(string name)
         {
-            return await _context.Brands.AnyAsync(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+            return await _context.Brands.AnyAsync(x => x.Name.ToLower() == name.ToLower());
         }
 
     }
