@@ -1,12 +1,15 @@
 using backend.Data;
 using backend.Services;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddNewtonsoftJson(options =>
+{
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+});
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -21,6 +24,7 @@ builder.Services.AddScoped<SillageService>();
 builder.Services.AddScoped<ScentService>();
 builder.Services.AddScoped<GenderService>();
 builder.Services.AddScoped<LongevityService>();
+builder.Services.AddScoped<FragranceService>();
 
 
 var app = builder.Build();
