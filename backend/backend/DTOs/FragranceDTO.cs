@@ -6,11 +6,11 @@ namespace backend.Models
     public class FragranceDto
     {
         [Required]
-        [StringLength(35, MinimumLength = 3, ErrorMessage = "Fragance name must be between 3 and 35 characters.")]
+        [StringLength(50, MinimumLength = 1, ErrorMessage = "Fragance name must be between 1 and 50 characters.")]
         public string Name { get; set; } = string.Empty;
 
         [Required]
-        [StringLength(500, MinimumLength = 300, ErrorMessage = "Fragrance description must be between 300 and 500 characters.")]
+        [StringLength(1000, MinimumLength = 100, ErrorMessage = "Fragrance description must be between 300 and 500 characters.")]
         public string Description { get; set; } = string.Empty;
 
         [Required]
@@ -19,7 +19,7 @@ namespace backend.Models
         public decimal Price { get; set; }
 
         [Required]
-        [StringLength(75, MinimumLength = 20, ErrorMessage = "Fragance notes must be between 20 and 75 characters.")]
+        [StringLength(100, MinimumLength = 20, ErrorMessage = "Fragance notes must be between 20 and 75 characters.")]
         public string Notes { get; set; } = string.Empty;
 
         [Required]
@@ -27,11 +27,12 @@ namespace backend.Models
         public int Size { get; set; }
 
         [Required]
-        [Display(Name = "Launch Date")]
-        public DateOnly LaunchDate { get; set; }
+        [Display(Name = "Launch Year")]
+        [Range(1950, 2024, ErrorMessage = "Please enter a valid year.")]
+        public int LaunchYear { get; set; }
 
         [Required]
-        [StringLength(300, MinimumLength = 75, ErrorMessage = "Fragance ingredients must be between 75 and 300 characters.")]
+        [StringLength(300, MinimumLength = 35, ErrorMessage = "Fragance ingredients must be between 75 and 300 characters.")]
         public string Ingredients { get; set; } = string.Empty;
 
         // Foreign Keys
