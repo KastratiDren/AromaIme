@@ -61,6 +61,12 @@ namespace backend.Services
 
             return _mapper.Map<FragranceDto>(fragrance);
         }
+
+        public async Task<bool> ExistsAsync(string name)
+        {
+            return await _context.Fragrances.AnyAsync(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }
 

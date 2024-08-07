@@ -62,5 +62,10 @@ namespace backend.Services
             return _mapper.Map<SeasonDTO>(season); 
         }
 
+        public async Task<bool> ExistsAsync(string name)
+        {
+            return await _context.Seasons.AnyAsync(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }

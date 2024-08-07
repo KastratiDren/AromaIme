@@ -62,5 +62,10 @@ namespace backend.Services
             return _mapper.Map<ScentDTO>(scent); 
         }
 
+        public async Task<bool> ExistsAsync(string name)
+        {
+            return await _context.Scents.AnyAsync(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }

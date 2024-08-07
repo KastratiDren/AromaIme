@@ -62,5 +62,10 @@ namespace backend.Services
             return _mapper.Map<LongevityDTO>(longevity); 
         }
 
+        public async Task<bool> ExistsAsync(string name)
+        {
+            return await _context.Longevities.AnyAsync(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }

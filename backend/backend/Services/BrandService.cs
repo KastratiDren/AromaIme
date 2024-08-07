@@ -62,5 +62,10 @@ namespace backend.Services
             return _mapper.Map<BrandDTO>(brand); 
         }
 
+        public async Task<bool> ExistsAsync(string name)
+        {
+            return await _context.Brands.AnyAsync(x => x.Name.Equals(name, StringComparison.OrdinalIgnoreCase));
+        }
+
     }
 }
