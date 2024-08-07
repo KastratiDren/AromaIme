@@ -16,27 +16,27 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<FragranceDto>> GetAllAsync()
+        public async Task<List<FragranceDTO>> GetAllAsync()
         {
             var fragrances = await _context.Fragrances.ToListAsync();
-            return _mapper.Map<List<FragranceDto>>(fragrances);
+            return _mapper.Map<List<FragranceDTO>>(fragrances);
         }
 
-        public async Task<FragranceDto?> GetAsync(int id)
+        public async Task<FragranceDTO?> GetAsync(int id)
         {
             var fragrance = await _context.Fragrances.FindAsync(id);
             if (fragrance == null)
                 return null;
 
-            return _mapper.Map<FragranceDto>(fragrance);
+            return _mapper.Map<FragranceDTO>(fragrance);
         }
 
-        public async Task<FragranceDto> CreateAsync(FragranceDto fragranceDto)
+        public async Task<FragranceDTO> CreateAsync(FragranceDTO fragranceDTO)
         {
-            var fragrance = _mapper.Map<Fragrance>(fragranceDto);
+            var fragrance = _mapper.Map<Fragrance>(fragranceDTO);
             await _context.Fragrances.AddAsync(fragrance);
             await _context.SaveChangesAsync();
-            return fragranceDto;
+            return fragranceDTO;
         }
 
         public async Task<Fragrance?> DeleteAsync(int id)
@@ -50,16 +50,16 @@ namespace backend.Services
             return fragrance;
         }
 
-        public async Task<FragranceDto?> UpdateAsync(int id, FragranceDto fragranceDto)
+        public async Task<FragranceDTO?> UpdateAsync(int id, FragranceDTO fragranceDTO)
         {
             var fragrance = await _context.Fragrances.FindAsync(id);
             if (fragrance == null)
                 return null;
 
-            _mapper.Map(fragranceDto, fragrance);
+            _mapper.Map(fragranceDTO, fragrance);
             await _context.SaveChangesAsync();
 
-            return _mapper.Map<FragranceDto>(fragrance);
+            return _mapper.Map<FragranceDTO>(fragrance);
         }
 
         public async Task<bool> ExistsAsync(string name)

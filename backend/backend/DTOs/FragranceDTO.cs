@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace backend.Models
 {
-    public class FragranceDto
+    public class FragranceDTO
     {
         [Required]
         [StringLength(50, MinimumLength = 1, ErrorMessage = "Fragance name must be between 1 and 50 characters.")]

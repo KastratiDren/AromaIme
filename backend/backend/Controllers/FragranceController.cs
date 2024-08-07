@@ -1,4 +1,5 @@
-﻿using backend.Models;
+﻿using backend.DTOs;
+using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -36,9 +37,9 @@ namespace backend.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] FragranceDto fragranceDto)
+        public async Task<IActionResult> Create([FromBody] FragranceDTO fragranceDTO)
         {
-            if (fragranceDto == null)
+            if (fragranceDTO == null)
                 return BadRequest();
 
             if (!ModelState.IsValid)
@@ -46,8 +47,12 @@ namespace backend.Controllers
                 return BadRequest(ModelState);
             }
 
-            var createdDto = await _fragranceService.CreateAsync(fragranceDto);
-            return Ok(createdDto);
+            bool exists = await _fragranceService.ExistsAsync(fragranceDTO.Name);
+            if (exists)
+                return Conflict("Fragrance already exists.");
+
+            var createdDTO = await _fragranceService.CreateAsync(fragranceDTO);
+            return Ok(createdDTO);
         }
 
         [HttpDelete("{id}")]
@@ -64,9 +69,9 @@ namespace backend.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] FragranceDto fragranceDto)
+        public async Task<IActionResult> Update([FromRoute] int id, [FromBody] FragranceDTO fragranceDTO)
         {
-            if (id == 0 || fragranceDto == null)
+            if (id == 0 || fragranceDTO == null)
                 return BadRequest();
 
             if (!ModelState.IsValid)
@@ -74,7 +79,11 @@ namespace backend.Controllers
                 return BadRequest(ModelState);
             }
 
-            var updatedFragrance = await _fragranceService.UpdateAsync(id, fragranceDto);
+            bool exists = await _fragranceService.ExistsAsync(fragranceDTO.Name);
+            if (exists)
+                return Conflict("Fragrance already exists.");
+
+            var updatedFragrance = await _fragranceService.UpdateAsync(id, fragranceDTO);
             if (updatedFragrance == null)
                 return NotFound();
 
