@@ -8,7 +8,7 @@ namespace backend.Helpers
     {
         public ApplicationMapper()
         {
-            CreateMap<Fragrance, FragranceDto>().ReverseMap();
+            CreateMap<Fragrance, FragranceDTO>().ReverseMap();
             CreateMap<Category, CategoryDTO>().ReverseMap();
             CreateMap<Brand, BrandDTO>().ReverseMap();
             CreateMap<Gender, GenderDTO>().ReverseMap();

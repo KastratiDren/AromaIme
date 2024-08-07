@@ -26,7 +26,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var gender = await _genderService.GetAsync(id);
             if (gender == null)
@@ -39,12 +39,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] GenderDTO genderDTO)
         {
             if (genderDTO == null)
-                return BadRequest();
+                return BadRequest("Gender can't be null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _genderService.ExistsAsync(genderDTO.Name);
+            if (exists)
+                return Conflict("Gender already exists.");
 
             var createdDTO = await _genderService.CreateAsync(genderDTO);
             return Ok(createdDTO);
@@ -54,7 +56,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var gender = await _genderService.DeleteAsync(id);
             if (gender == null)
@@ -66,12 +68,15 @@ namespace backend.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] GenderDTO genderDTO)
         {
             if (id == 0 || genderDTO == null)
-                return BadRequest();
+                return BadRequest("Id or gender can't be zero/null.");
 
             if (!ModelState.IsValid)
-            {
+
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _genderService.ExistsAsync(genderDTO.Name);
+            if (exists)
+                return Conflict("Gender already exists.");
 
             var updatedGender = await _genderService.UpdateAsync(id, genderDTO);
             if (updatedGender == null)

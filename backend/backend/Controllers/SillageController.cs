@@ -26,7 +26,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var sillage = await _sillageService.GetAsync(id);
             if (sillage == null)
@@ -39,12 +39,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] SillageDTO sillageDTO)
         {
             if (sillageDTO == null)
-                return BadRequest();
+                return BadRequest("Sillage can't be null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _sillageService.ExistsAsync(sillageDTO.Name);
+            if (exists)
+                return Conflict("Sillage already exists.");
 
             var createdDTO = await _sillageService.CreateAsync(sillageDTO);
             return Ok(createdDTO);
@@ -54,7 +56,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var sillage = await _sillageService.DeleteAsync(id);
             if (sillage == null)
@@ -66,12 +68,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] SillageDTO sillageDTO)
         {
             if (id == 0 || sillageDTO == null)
-                return BadRequest();
+                return BadRequest("Id or sillage can't be zero/null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _sillageService.ExistsAsync(sillageDTO.Name);
+            if (exists)
+                return Conflict("Sillage already exists.");
 
             var updatedSillage = await _sillageService.UpdateAsync(id, sillageDTO);
             if (updatedSillage == null)

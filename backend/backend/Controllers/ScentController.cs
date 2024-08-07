@@ -26,7 +26,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var scent = await _scentService.GetAsync(id);
             if (scent == null)
@@ -39,12 +39,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] ScentDTO scentDTO)
         {
             if (scentDTO == null)
-                return BadRequest();
+                return BadRequest("Scent can't be null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _scentService.ExistsAsync(scentDTO.Name);
+            if (exists)
+                return Conflict("Scent already exists.");
 
             var createdDTO = await _scentService.CreateAsync(scentDTO);
             return Ok(createdDTO);
@@ -54,7 +56,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var scent = await _scentService.DeleteAsync(id);
             if (scent == null)
@@ -66,12 +68,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ScentDTO scentDTO)
         {
             if (id == 0 || scentDTO == null)
-                return BadRequest();
+                return BadRequest("Id or scent cant be zero/null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _scentService.ExistsAsync(scentDTO.Name);
+            if (exists)
+                return Conflict("Scent already exists.");
 
             var updatedScent = await _scentService.UpdateAsync(id, scentDTO);
             if (updatedScent == null)

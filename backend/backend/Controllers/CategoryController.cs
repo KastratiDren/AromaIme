@@ -26,7 +26,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var category = await _categoryService.GetAsync(id);
             if(category == null)
@@ -39,12 +39,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] CategoryDTO categoryDTO)
         {
             if(categoryDTO == null)
-                return BadRequest();
+                return BadRequest("Category can't be null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _categoryService.ExistsAsync(categoryDTO.Name);
+            if (exists)
+                return Conflict("Category already exists.");
 
             var createdDTO = await _categoryService.CreateAsync(categoryDTO);
             return Ok(createdDTO);
@@ -54,7 +56,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if(id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var category = await _categoryService.DeleteAsync(id);
             if (category == null)
@@ -66,12 +68,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] CategoryDTO categoryDTO)
         {
             if (id == 0 || categoryDTO == null)
-                return BadRequest();
+                return BadRequest("Id or category can't be zero/null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _categoryService.ExistsAsync(categoryDTO.Name);
+            if (exists)
+                return Conflict("Category already exists.");
 
             var updatedCategory = await _categoryService.UpdateAsync(id, categoryDTO);
             if (updatedCategory == null)

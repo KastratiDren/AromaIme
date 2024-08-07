@@ -27,7 +27,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var fragrance = await _fragranceService.GetAsync(id);
             if (fragrance == null)
@@ -40,12 +40,10 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] FragranceDTO fragranceDTO)
         {
             if (fragranceDTO == null)
-                return BadRequest();
+                return BadRequest("Fragrance can't be null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             bool exists = await _fragranceService.ExistsAsync(fragranceDTO.Name);
             if (exists)
@@ -59,7 +57,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var fragrance = await _fragranceService.DeleteAsync(id);
             if (fragrance == null)
@@ -72,12 +70,10 @@ namespace backend.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] FragranceDTO fragranceDTO)
         {
             if (id == 0 || fragranceDTO == null)
-                return BadRequest();
+                return BadRequest("Id or fragrance can't be zero/null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
 
             bool exists = await _fragranceService.ExistsAsync(fragranceDTO.Name);
             if (exists)

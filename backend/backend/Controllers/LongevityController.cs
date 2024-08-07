@@ -26,7 +26,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Get([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var longevity = await _longevityService.GetAsync(id);
             if (longevity == null)
@@ -39,12 +39,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] LongevityDTO longevityDTO)
         {
             if (longevityDTO == null)
-                return BadRequest();
+                return BadRequest("Longevity can't be null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _longevityService.ExistsAsync(longevityDTO.Name);
+            if (exists)
+                return Conflict("Longevity already exists.");
 
             var createdDTO = await _longevityService.CreateAsync(longevityDTO);
             return Ok(createdDTO);
@@ -54,7 +56,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (id == 0)
-                return BadRequest();
+                return BadRequest("Id can't be zero.");
 
             var longevity = await _longevityService.DeleteAsync(id);
             if (longevity == null)
@@ -66,12 +68,14 @@ namespace backend.Controllers
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] LongevityDTO longevityDTO)
         {
             if (id == 0 || longevityDTO == null)
-                return BadRequest();
+                return BadRequest("Id or longevity can be zero/null.");
 
             if (!ModelState.IsValid)
-            {
                 return BadRequest(ModelState);
-            }
+
+            bool exists = await _longevityService.ExistsAsync(longevityDTO.Name);
+            if (exists)
+                return Conflict("Longevity already exists.");
 
             var updatedLongevity = await _longevityService.UpdateAsync(id, longevityDTO);
             if (updatedLongevity == null)
