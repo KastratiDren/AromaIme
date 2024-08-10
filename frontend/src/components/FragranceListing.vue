@@ -10,7 +10,7 @@ const scentName = ref('');
 const categoryName = ref('');
 
 // Method to fetch scent name based on scentId
-const fetchScentName = async (scentId) => {
+const getScent = async (scentId) => {
   try {
     const response = await axios.get(`https://localhost:7224/api/Scent/${scentId}`);
     scentName.value = response.data.name;
@@ -20,7 +20,7 @@ const fetchScentName = async (scentId) => {
 };
 
 // Method to fetch category name based on categoryId
-const fetchCategoryName = async (categoryId) => {
+const getCategory = async (categoryId) => {
   try {
     const response = await axios.get(`https://localhost:7224/api/Category/${categoryId}`);
     categoryName.value = response.data.name;
@@ -31,8 +31,8 @@ const fetchCategoryName = async (categoryId) => {
 
 // Fetch names when the component mounts
 onMounted(() => {
-    fetchScentName(props.fragrance.scentId);
-    fetchCategoryName(props.fragrance.categoryId);
+    getScent(props.fragrance.scentId);
+    getCategory(props.fragrance.categoryId);
 });
 </script>
 
@@ -40,7 +40,7 @@ onMounted(() => {
   <div class="bg-white rounded-xl shadow-md relative">
     <div class="p-4">
       <div class="mb-6">
-        <div class="text-gray-600 my-2">{{ categoryName }}</div>
+        <div class="text-primary my-2">{{ categoryName }}</div>
         <h3 class="text-xl font-bold">{{ fragrance.name }}</h3>
       </div>
 
@@ -53,9 +53,8 @@ onMounted(() => {
       <div class="border border-gray-100 mb-5"></div>
 
       <div class="flex flex-col lg:flex-row justify-between mb-4">
-        <div class="text-orange-700 mb-3">
-          <i class="fa-solid fa-location-dot text-lg"></i>
-          {{ scentName }}
+        <div class="text-black mb-3">
+          Scent Type: <span class="text-primary font-bold">{{ scentName }}</span> 
         </div>
         <a
           :href="'/fragrance/' + fragrance.id"
