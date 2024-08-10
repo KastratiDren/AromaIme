@@ -1,10 +1,17 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
+import { RouterLink } from 'vue-router';
 
 const props = defineProps({
   fragrance: Object
 });
+
+const showFullDescription = ref(false);
+
+const toggleFullDescription = () => {
+  showFullDescription.value = !showFullDescription.value;
+};
 
 const scentName = ref('');
 const categoryName = ref('');
@@ -56,12 +63,12 @@ onMounted(() => {
         <div class="text-black mb-3">
           Scent Type: <span class="text-primary font-bold">{{ scentName }}</span> 
         </div>
-        <a
-          :href="'/fragrance/' + fragrance.id"
+        <RouterLink
+          :to="'/fragrance/' + fragrance.id"
           class="h-[36px] bg-primary hover:bg-hover text-white px-4 py-2 rounded-lg text-center text-sm"
         >
           Read More
-        </a>
+        </RouterLink>
       </div>
     </div>
   </div>

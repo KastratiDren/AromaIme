@@ -2,12 +2,17 @@
 import FragranceListing from './FragranceListing.vue';
 import { ref, onMounted, defineProps } from 'vue';
 import axios from 'axios';
+import { RouterLink } from 'vue-router';
 
 // Define a reactive variable to store fragrances
 const fragrances = ref([]);
 
 defineProps({
-  limit: Number
+  limit: Number,
+  showButton: {
+    type: Boolean,
+    default: false,
+  }
 });
 
 // Function to fetch fragrances
@@ -38,11 +43,11 @@ onMounted(fetchFragrances);
             </div>
         </div>
     </section>
-    <section class="m-auto max-w-lg my-10 px-6">
-      <a
-        href="/fragrances"
+    <section v-if="showButton" class="m-auto max-w-lg my-10 px-6">
+      <RouterLink
+        to="/fragrances"
         class="block bg-primary text-white text-center py-4 px-6 rounded-xl hover:bg-gray-700"
-        >View All Fragrances</a
+        >View All Fragrances</RouterLink
       >
     </section>
 </template>

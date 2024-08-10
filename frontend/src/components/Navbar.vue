@@ -1,3 +1,7 @@
+<script setup>
+import { RouterLink } from 'vue-router';
+</script>
+
 <template>
     <nav class="bg-primary border-b border-white-600">
         <div class="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -10,13 +14,16 @@
                      -->
                     <div class="md:ml-auto">
                         <div class="flex space-x-2">
-                            <a href="index.html"
-                                class="text-white bg-secondary hover:bg-hover hover:text-white rounded-md px-3 py-2">Home</a>
-                            <a href="fragrance.html"
-                                class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">Fragrances</a>
-                            <a href="add-fragrance.html"
+                            <RouterLink to="/"
+                                class="text-white bg-secondary hover:bg-hover hover:text-white rounded-md px-3 py-2">Home
+                            </RouterLink>
+                            <RouterLink to="/fragrances"
+                                class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">Fragrances
+                            </RouterLink>
+                            <RouterLink to="/fragrances/add"
                                 class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">Add
-                                Fragrance</a>
+                                Fragrance
+                            </RouterLink>
                         </div>
                     </div>
                 </div>

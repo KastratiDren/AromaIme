@@ -7,5 +7,5 @@ import FragranceListings from '@/components/FragranceListings.vue';
 <template>
   <Hero />
   <HomeCards />
-  <FragranceListings :limit="3"/>
+  <FragranceListings :limit="3" :show-button="true"/>
 </template>

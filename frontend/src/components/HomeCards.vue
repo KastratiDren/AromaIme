@@ -1,5 +1,6 @@
 <script setup>
 import Card from '@/components/Card.vue'
+import { RouterLink } from 'vue-router';
 </script>
 
 <template>
@@ -12,9 +13,9 @@ import Card from '@/components/Card.vue'
                     <p class="mt-2 mb-4 text-black-700">
                         Browse our Fragrances and find the right one today
                     </p>
-                    <a href="fragrance.html" class="inline-block bg-primary text-white rounded-lg px-4 py-2 hover:bg-hover">
+                    <RouterLink to="/fragrances" class="inline-block bg-primary text-white rounded-lg px-4 py-2 hover:bg-hover">
                         Browse Fragrances
-                    </a>
+                    </RouterLink>
                 </Card>
                 <!-- Companies Card -->
                 <Card bg="bg-lightSecondary">
@@ -22,10 +23,10 @@ import Card from '@/components/Card.vue'
                     <p class="mt-2 mb-4 text-black-700">
                         List your favorite fragrance to wear
                     </p>
-                    <a href="add-fragrance.html"
+                    <RouterLink to="/fragrances/add"
                         class="inline-block bg-primary text-white rounded-lg px-4 py-2 hover:bg-hover">
                         Add Fragrance
-                    </a>
+                    </RouterLink>
                 </Card>
             </div>
         </div>
