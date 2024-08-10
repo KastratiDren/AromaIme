@@ -13,6 +13,8 @@ export default {
         primary: '#7A1E4D',
         secondary: '#61183E',
         hover: '#4E1332',
+        lightPrimary: '#F9E5E8',
+        lightSecondary: '#E9D3D9',
       }
     },
   },

@@ -16,7 +16,7 @@
                                 class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">Fragrances</a>
                             <a href="add-fragrance.html"
                                 class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">Add
-                                Fragance</a>
+                                Fragrance</a>
                         </div>
                     </div>
                 </div>
