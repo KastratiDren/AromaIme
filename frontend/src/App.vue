@@ -1,3 +1,7 @@
+<script setup>
+import Navbar from '@/components/Navbar.vue';
+</script>
+
 <template >
-  <h1 class="text-3xl">Aroma Ime</h1>
+  <Navbar />
 </template>

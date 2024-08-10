@@ -9,6 +9,11 @@ export default {
       gridTemplateColumns: {
         '70/30': '70% 28%',
       },
+      colors: {
+        primary: '#7A1E4D',
+        secondary: '#61183E',
+        hover: '#4E1332',
+      }
     },
   },
   variants: {
