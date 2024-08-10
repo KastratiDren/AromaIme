@@ -58,7 +58,7 @@ onMounted(() => {
           {{ scentName }}
         </div>
         <a
-          href="fragrance.html"
+          :href="'/fragrance/' + fragrance.id"
           class="h-[36px] bg-primary hover:bg-hover text-white px-4 py-2 rounded-lg text-center text-sm"
         >
           Read More
