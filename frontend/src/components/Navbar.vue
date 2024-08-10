@@ -15,7 +15,7 @@ import { RouterLink } from 'vue-router';
                     <div class="md:ml-auto">
                         <div class="flex space-x-2">
                             <RouterLink to="/"
-                                class="text-white bg-secondary hover:bg-hover hover:text-white rounded-md px-3 py-2">Home
+                                class="text-white hover:bg-hover hover:text-white rounded-md px-3 py-2">Home
                             </RouterLink>
                             <RouterLink to="/fragrances"
                                 class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">Fragrances
