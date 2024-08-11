@@ -16,19 +16,19 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<SeasonDTO>> GetAllAsync()
+        public async Task<List<Season>> GetAllAsync()
         {
             var seasons =  await _context.Seasons.ToListAsync();
-            return _mapper.Map<List<SeasonDTO>>(seasons);
+            return seasons;
         }
 
-        public async Task<SeasonDTO?> GetAsync(int id)
+        public async Task<Season?> GetAsync(int id)
         {
             var season = await _context.Seasons.FindAsync(id);
             if (season == null)
                 return null;
 
-            return _mapper.Map<SeasonDTO>(season);
+            return season;
         }
 
         public async Task<SeasonDTO> CreateAsync(SeasonDTO seasonDTO)

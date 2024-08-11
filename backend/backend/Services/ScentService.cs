@@ -16,19 +16,19 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<ScentDTO>> GetAllAsync()
+        public async Task<List<Scent>> GetAllAsync()
         {
             var scents =  await _context.Scents.ToListAsync();
-            return _mapper.Map<List<ScentDTO>>(scents);
+            return scents;
         }
 
-        public async Task<ScentDTO?> GetAsync(int id)
+        public async Task<Scent?> GetAsync(int id)
         {
             var scent = await _context.Scents.FindAsync(id);
             if (scent == null)
                 return null;
 
-            return _mapper.Map<ScentDTO>(scent);
+            return scent;
         }
 
         public async Task<ScentDTO> CreateAsync(ScentDTO scentDTO)

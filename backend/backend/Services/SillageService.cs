@@ -16,19 +16,19 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<SillageDTO>> GetAllAsync()
+        public async Task<List<Sillage>> GetAllAsync()
         {
             var sillages =  await _context.Sillages.ToListAsync();
-            return _mapper.Map<List<SillageDTO>>(sillages);
+            return sillages;
         }
 
-        public async Task<SillageDTO?> GetAsync(int id)
+        public async Task<Sillage?> GetAsync(int id)
         {
             var sillage = await _context.Sillages.FindAsync(id);
             if (sillage == null)
                 return null;
 
-            return _mapper.Map<SillageDTO>(sillage);
+            return sillage;
         }
 
         public async Task<SillageDTO> CreateAsync(SillageDTO sillageDTO)

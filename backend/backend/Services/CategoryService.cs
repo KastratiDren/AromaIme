@@ -16,19 +16,19 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<CategoryDTO>> GetAllAsync()
+        public async Task<List<Category>> GetAllAsync()
         {
             var categories =  await _context.Categories.ToListAsync();
-            return _mapper.Map<List<CategoryDTO>>(categories);
+            return categories;
         }
 
-        public async Task<CategoryDTO?> GetAsync(int id)
+        public async Task<Category?> GetAsync(int id)
         {
             var category = await _context.Categories.FindAsync(id);
             if (category == null)
                 return null;
 
-            return _mapper.Map<CategoryDTO>(category);
+            return category;
         }
 
         public async Task<CategoryDTO> CreateAsync(CategoryDTO categoryDTO)

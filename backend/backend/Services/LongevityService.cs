@@ -16,19 +16,19 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<LongevityDTO>> GetAllAsync()
+        public async Task<List<Longevity>> GetAllAsync()
         {
             var longevities =  await _context.Longevities.ToListAsync();
-            return _mapper.Map<List<LongevityDTO>>(longevities);
+            return longevities;
         }
 
-        public async Task<LongevityDTO?> GetAsync(int id)
+        public async Task<Longevity?> GetAsync(int id)
         {
             var longevity = await _context.Longevities.FindAsync(id);
             if (longevity == null)
                 return null;
 
-            return _mapper.Map<LongevityDTO>(longevity);
+            return longevity;
         }
 
         public async Task<LongevityDTO> CreateAsync(LongevityDTO longevityDTO)

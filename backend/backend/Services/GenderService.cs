@@ -16,19 +16,19 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<List<GenderDTO>> GetAllAsync()
+        public async Task<List<Gender>> GetAllAsync()
         {
             var genders =  await _context.Genders.ToListAsync();
-            return _mapper.Map<List<GenderDTO>>(genders);
+            return genders;
         }
 
-        public async Task<GenderDTO?> GetAsync(int id)
+        public async Task<Gender?> GetAsync(int id)
         {
             var gender = await _context.Genders.FindAsync(id);
             if (gender == null)
                 return null;
 
-            return _mapper.Map<GenderDTO>(gender);
+            return gender;
         }
 
         public async Task<GenderDTO> CreateAsync(GenderDTO genderDTO)
