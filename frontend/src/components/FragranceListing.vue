@@ -64,7 +64,7 @@ onMounted(() => {
           Scent Type: <span class="text-primary font-bold">{{ scentName }}</span> 
         </div>
         <RouterLink
-          :to="'/fragrance/' + fragrance.id"
+          :to="'/fragrances/' + fragrance.id"
           class="h-[36px] bg-primary hover:bg-hover text-white px-4 py-2 rounded-lg text-center text-sm"
         >
           Read More
