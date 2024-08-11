@@ -35,7 +35,7 @@ namespace backend.Controllers
             return Ok(scent);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] ScentDTO scentDTO)
         {
             if (scentDTO == null)
@@ -52,7 +52,7 @@ namespace backend.Controllers
             return Ok(createdDTO);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (id == 0)
@@ -64,7 +64,7 @@ namespace backend.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] ScentDTO scentDTO)
         {
             if (id == 0 || scentDTO == null)

@@ -35,7 +35,7 @@ namespace backend.Controllers
             return Ok(gender);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         public async Task<IActionResult> Create([FromBody] GenderDTO genderDTO)
         {
             if (genderDTO == null)
@@ -52,7 +52,7 @@ namespace backend.Controllers
             return Ok(createdDTO);
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("delete/{id}")]
         public async Task<IActionResult> Delete([FromRoute] int id)
         {
             if (id == 0)
@@ -64,7 +64,7 @@ namespace backend.Controllers
             return NoContent();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("update/{id}")]
         public async Task<IActionResult> Update([FromRoute] int id, [FromBody] GenderDTO genderDTO)
         {
             if (id == 0 || genderDTO == null)
