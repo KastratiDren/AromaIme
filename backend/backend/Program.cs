@@ -1,5 +1,7 @@
 using backend.Data;
+using backend.Models;
 using backend.Services;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
 
@@ -24,6 +26,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+builder.Services.AddIdentity<User, IdentityRole>(options =>
+{
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 6;
+}).AddEntityFrameworkStores<AppDbContext>();
+
 builder.Services.AddAutoMapper(typeof(Program));
 
 //Add custom services to the container.
