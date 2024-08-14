@@ -1,15 +1,14 @@
+using api.Service;
 using backend.Data;
 using backend.Models;
 using backend.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
 builder.Services.AddControllers().AddNewtonsoftJson(options =>
 {
     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
@@ -26,12 +25,16 @@ builder.Services.AddCors(options =>
                   .AllowAnyMethod();
         });
 });
+
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 
 //Database Connection to SQL Server
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 //Authentication Configuration with Identity Core and JWT
 builder.Services.AddIdentity<User, IdentityRole>(options =>
@@ -66,8 +69,10 @@ builder.Services.AddAuthentication(options =>
     };
 });
 
+
 //AutomaMapper
 builder.Services.AddAutoMapper(typeof(Program));
+
 
 //Add custom services to the container.
 builder.Services.AddScoped<BrandService>();
@@ -78,6 +83,7 @@ builder.Services.AddScoped<ScentService>();
 builder.Services.AddScoped<GenderService>();
 builder.Services.AddScoped<LongevityService>();
 builder.Services.AddScoped<FragranceService>();
+builder.Services.AddScoped<TokenService>();
 
 
 var app = builder.Build();

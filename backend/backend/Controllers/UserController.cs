@@ -1,4 +1,5 @@
-﻿using backend.DTOs.UserDTOs;
+﻿using api.Service;
+using backend.DTOs.UserDTOs;
 using backend.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -11,9 +12,11 @@ namespace backend.Controllers
     public class UserController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
-        public UserController(UserManager<User> userManager)
+        private readonly TokenService _tokenService;
+        public UserController(UserManager<User> userManager, TokenService tokenService)
         {
             _userManager = userManager;
+            _tokenService = tokenService;
         }
 
         [HttpPost("register")]
@@ -39,7 +42,14 @@ namespace backend.Controllers
                     var roleResult = await _userManager.AddToRoleAsync(user, "User");
                     if (roleResult.Succeeded)
                     {
-                        return Ok("User Created!");
+                        return Ok(
+                            new UserDTO
+                            {
+                                UserName = user.UserName,
+                                Email = user.Email,
+                                Token = _tokenService.CreateToken(user)
+                            }  
+                        );
                     }
                     else
                     {
