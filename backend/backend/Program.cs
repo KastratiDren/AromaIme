@@ -111,7 +111,7 @@ builder.Services.AddScoped<ScentService>();
 builder.Services.AddScoped<GenderService>();
 builder.Services.AddScoped<LongevityService>();
 builder.Services.AddScoped<FragranceService>();
-builder.Services.AddScoped<TokenService>();
+builder.Services.AddScoped<AuthenticationService>();
 
 
 var app = builder.Build();

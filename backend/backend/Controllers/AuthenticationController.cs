@@ -10,15 +10,15 @@ namespace backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class UserController : ControllerBase
+    public class AuthenticationController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signinManager;
-        private readonly TokenService _tokenService;
-        public UserController(UserManager<User> userManager, TokenService tokenService, SignInManager<User> signinManager)
+        private readonly AuthenticationService _authenticationService;
+        public AuthenticationController(UserManager<User> userManager, AuthenticationService authenticationService, SignInManager<User> signinManager)
         {
             _userManager = userManager;
-            _tokenService = tokenService;
+            _authenticationService = authenticationService;
             _signinManager = signinManager;
         }
 
@@ -41,7 +41,7 @@ namespace backend.Controllers
                 {
                     UserName = user.UserName,
                     Email = user.Email,
-                    Token = _tokenService.CreateToken(user)
+                    Token = _authenticationService.CreateToken(user)
                 }
             );
         }
@@ -74,7 +74,7 @@ namespace backend.Controllers
                             {
                                 UserName = user.UserName,
                                 Email = user.Email,
-                                Token = _tokenService.CreateToken(user)
+                                Token = _authenticationService.CreateToken(user)
                             }  
                         );
                     }

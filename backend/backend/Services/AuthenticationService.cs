@@ -6,12 +6,12 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace api.Service
 {
-    public class TokenService
+    public class AuthenticationService
     {
         private readonly IConfiguration _config;
         private readonly SymmetricSecurityKey _key;
 
-        public TokenService(IConfiguration config)
+        public AuthenticationService(IConfiguration config)
         {
             _config = config;
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(_config["JWT:SigningKey"])); //turn it into bytes
