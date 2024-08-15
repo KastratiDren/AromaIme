@@ -14,10 +14,11 @@ const toast = useToast();
 // Function to submit the login form
 const submitForm = async () => {
   try {
-    const response = await axios.post('https://localhost:7224/api/User/login', formData.value);
+    const response = await axios.post('https://localhost:7224/api/Authentication/login', formData.value);
 
     // Log the UserDTO attributes in the console
     const userDTO = response.data;
+    // console.log(JSON.stringify(userDTO.token));
     console.log('UserDTO:', userDTO);
 
     toast.success('Login successful!');

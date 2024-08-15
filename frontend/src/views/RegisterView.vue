@@ -19,7 +19,7 @@ const submitForm = async () => {
   console.log('Form Data:', formData.value);
 
   try {
-    await axios.post('https://localhost:7224/api/User/register', formData.value);
+    await axios.post('https://localhost:7224/api/Authentication/register', formData.value);
     toast.success('Registration Successful!');
 
     // Reset the formData
