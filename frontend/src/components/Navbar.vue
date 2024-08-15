@@ -28,6 +28,10 @@ import { RouterLink } from 'vue-router';
                                 class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">
                                 Register
                             </RouterLink>
+                            <RouterLink to="/login"
+                                class="text-white hover:bg-secondary hover:text-white rounded-md px-3 py-2">
+                                Login
+                            </RouterLink>
 
                         </div>
                     </div>

@@ -6,6 +6,7 @@ import FragranceView from '@/views/FragranceView.vue';
 import AddFragranceView from '@/views/AddFragranceView.vue';
 import EditFragranceView from '@/views/EditFragranceView.vue';
 import RegisterView from '@/views/RegisterView.vue';
+import LoginView from '@/views/LoginView.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -39,6 +40,11 @@ const router = createRouter({
       path: '/register',
       name: 'resgister',
       component: RegisterView
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: LoginView
     },
     {
       path: '/:catchAll(.*)',
