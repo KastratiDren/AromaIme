@@ -93,5 +93,20 @@ namespace backend.Controllers
                 return BadRequest(e);
             }
         }
+
+        [HttpPost("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            try
+            {
+                await _signinManager.SignOutAsync();
+                return Ok("User logged out successfully");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
     }
 }
