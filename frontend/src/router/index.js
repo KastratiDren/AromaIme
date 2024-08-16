@@ -29,12 +29,14 @@ const router = createRouter({
     {
       path: '/fragrances/add',
       name: 'add-fragrance',
-      component: AddFragranceView
+      component: AddFragranceView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/fragrances/edit/:id',
       name: 'edit-fragrance',
-      component: EditFragranceView
+      component: EditFragranceView,
+      meta: { requiresAuth: true },
     },
     {
       path: '/register',
@@ -52,6 +54,25 @@ const router = createRouter({
       component: NotFoundView,
     },
   ]
-})
+});
+
+router.beforeEach(async (to, from, next) => {
+  const token = localStorage.getItem('token');
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!token) {
+      next('/login');
+    } else {
+      // Decode the token to get the user's role
+      const userRole = JSON.parse(atob(token.split('.')[1])).role;
+      if (to.matched.some(record => record.meta.requiresAdmin) && userRole !== 'Admin') {
+        next('/unauthorized');
+      } else {
+        next();
+      }
+    }
+  } else {
+    next();
+  }
+});
 
 export default router
