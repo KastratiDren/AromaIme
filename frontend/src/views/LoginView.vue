@@ -1,29 +1,34 @@
 <script setup>
 import { ref } from 'vue';
 import axios from 'axios';
+import { useAuth } from '@/useAuth'; // Adjust path as needed
+import { useRouter } from 'vue-router';
 import { useToast } from 'vue-toastification';
 
-// Ref for form data
+// Define formData using ref
 const formData = ref({
   userName: '',
-  password: '',
+  password: ''
 });
 
 const toast = useToast();
+const { state, login } = useAuth(); // Destructure the updated auth store
+const router = useRouter();
 
-// Function to submit the login form
 const submitForm = async () => {
   try {
     const response = await axios.post('https://localhost:7224/api/Authentication/login', formData.value);
-
-    // Log the UserDTO attributes in the console
     const userDTO = response.data;
-    // console.log(JSON.stringify(userDTO.token));
     console.log('UserDTO:', userDTO);
-
     toast.success('Login successful!');
+
+    // Use the login function from useAuth
+    login(userDTO.token, userDTO.userName);
+
+    // Redirect to homepage
+    router.push('/');
   } catch (error) {
-    console.error('Login error:', error.response.data);
+    console.error('Login error:', error);
     toast.error('Login failed!');
   }
 };
@@ -56,4 +61,3 @@ const submitForm = async () => {
     </div>
   </section>
 </template>
-
