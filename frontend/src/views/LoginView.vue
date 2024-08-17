@@ -23,7 +23,7 @@ const submitForm = async () => {
     toast.success('Login successful!');
 
     // Use the login function from useAuth
-    login(userDTO.token, userDTO.userName);
+    login(userDTO.token, userDTO.userName, userDTO.role);
 
     // Redirect to homepage
     router.push('/');
