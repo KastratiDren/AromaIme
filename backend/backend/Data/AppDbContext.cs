@@ -18,6 +18,8 @@ namespace backend.Data
         public DbSet<Season> Seasons { get; set; }
         public DbSet<Longevity> Longevities { get; set; }
         public DbSet<Sillage> Sillages { get; set; }
+        public DbSet<CartItem> CartItems { get; set; }
+        public DbSet<Cart> Carts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

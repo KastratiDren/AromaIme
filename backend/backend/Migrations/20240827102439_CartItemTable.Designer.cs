@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
@@ -11,9 +12,11 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240827102439_CartItemTable")]
+    partial class CartItemTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b4a33a09-da59-43a9-bb4f-82faffc6fc9d",
+                            Id = "ad1681ff-9471-41bd-9a70-95a7fd740dc0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4a086494-71ff-4243-b873-341d6e4711d5",
+                            Id = "1ebc8372-9ab3-4997-b374-93ec8f5953d7",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -187,25 +190,6 @@ namespace backend.Migrations
                     b.ToTable("Brands");
                 });
 
-            modelBuilder.Entity("backend.Models.Cart", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Carts");
-                });
-
             modelBuilder.Entity("backend.Models.CartItem", b =>
                 {
                     b.Property<int>("Id")
@@ -213,9 +197,6 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("CartId")
-                        .HasColumnType("int");
 
                     b.Property<int>("FragranceId")
                         .HasColumnType("int");
@@ -227,8 +208,6 @@ namespace backend.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CartId");
 
                     b.HasIndex("FragranceId");
 
@@ -544,23 +523,8 @@ namespace backend.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("backend.Models.Cart", b =>
-                {
-                    b.HasOne("backend.Models.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("backend.Models.CartItem", b =>
                 {
-                    b.HasOne("backend.Models.Cart", null)
-                        .WithMany("CartItems")
-                        .HasForeignKey("CartId");
-
                     b.HasOne("backend.Models.Fragrance", "Fragrance")
                         .WithMany()
                         .HasForeignKey("FragranceId")
@@ -627,11 +591,6 @@ namespace backend.Migrations
                     b.Navigation("Season");
 
                     b.Navigation("Sillage");
-                });
-
-            modelBuilder.Entity("backend.Models.Cart", b =>
-                {
-                    b.Navigation("CartItems");
                 });
 #pragma warning restore 612, 618
         }
