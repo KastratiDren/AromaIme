@@ -60,7 +60,7 @@ namespace backend.Services
             return _mapper.Map<CartDTO>(cart);
         }
 
-        public async Task<bool> CartAsync(string userId)
+        public async Task<bool> CartExistsAsync(string userId)
         {
             return await _context.Carts.AnyAsync(c => c.UserId == userId);
         }
