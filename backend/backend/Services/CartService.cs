@@ -17,7 +17,7 @@ namespace backend.Services
             _mapper = mapper;
         }
 
-        public async Task<CartDTO?> GetCartAsync(string userId)
+        public async Task<CartDTO?> GetAsync(string userId)
         {
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
@@ -31,7 +31,7 @@ namespace backend.Services
             return cartDTO;
         }
 
-        public async Task<CartDTO> CreateCartAsync(string userId)
+        public async Task<CartDTO> CreateAsync(string userId)
         {
             var cart = new Cart
             {
@@ -45,7 +45,7 @@ namespace backend.Services
             return _mapper.Map<CartDTO>(cart);
         }
 
-        public async Task<CartDTO?> UpdateCartAsync(string userId, CartDTO cartDTO)
+        public async Task<CartDTO?> UpdateAsync(string userId, CartDTO cartDTO)
         {
             var cart = await _context.Carts
                 .Include(c => c.CartItems)
@@ -60,7 +60,7 @@ namespace backend.Services
             return _mapper.Map<CartDTO>(cart);
         }
 
-        public async Task<bool> CartExistsAsync(string userId)
+        public async Task<bool> CartAsync(string userId)
         {
             return await _context.Carts.AnyAsync(c => c.UserId == userId);
         }
