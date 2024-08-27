@@ -21,5 +21,8 @@ namespace backend.Models
         [Required]
         [Column(TypeName = "decimal(6,2)")]
         public decimal Price { get; set; }
+
+        [NotMapped] 
+        public decimal TotalAmount => Quantity * Price;
     }
 }
