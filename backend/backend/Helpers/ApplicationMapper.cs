@@ -16,6 +16,12 @@ namespace backend.Helpers
             CreateMap<Longevity, LongevityDTO>().ReverseMap();
             CreateMap<Scent, ScentDTO>().ReverseMap();
             CreateMap<Season, SeasonDTO>().ReverseMap();
+
+            CreateMap<Cart, CartDTO>().ReverseMap();
+            CreateMap<Order, OrderDTO>().ReverseMap();
+            CreateMap<CartItem, CartItemDTO>().ReverseMap();
+            CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+
         }
     }
 }
