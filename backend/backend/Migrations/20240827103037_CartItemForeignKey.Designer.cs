@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Data;
 
@@ -11,9 +12,11 @@ using backend.Data;
 namespace backend.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240827103037_CartItemForeignKey")]
+    partial class CartItemForeignKey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -51,13 +54,13 @@ namespace backend.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "7a9cc9be-bcfb-43f7-8f8e-199171431fe3",
+                            Id = "be80e546-7734-49da-a012-d1b62617ca69",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "2ed08724-8454-4acb-bd7e-2ef6022fe945",
+                            Id = "a096290d-3aec-458e-b56e-602266f12e01",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -366,30 +369,6 @@ namespace backend.Migrations
                     b.ToTable("Longevities");
                 });
 
-            modelBuilder.Entity("backend.Models.OrderItem", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("FragranceId")
-                        .HasColumnType("int");
-
-                    b.Property<decimal>("Price")
-                        .HasColumnType("decimal(6,2)");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("FragranceId");
-
-                    b.ToTable("OrderItems");
-                });
-
             modelBuilder.Entity("backend.Models.Scent", b =>
                 {
                     b.Property<int>("Id")
@@ -655,17 +634,6 @@ namespace backend.Migrations
                     b.Navigation("Season");
 
                     b.Navigation("Sillage");
-                });
-
-            modelBuilder.Entity("backend.Models.OrderItem", b =>
-                {
-                    b.HasOne("backend.Models.Fragrance", "Fragrance")
-                        .WithMany()
-                        .HasForeignKey("FragranceId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Fragrance");
                 });
 
             modelBuilder.Entity("backend.Models.Cart", b =>
