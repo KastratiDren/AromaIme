@@ -7,8 +7,9 @@ namespace backend.Models
     {
         public int Id { get; set; }
 
-        //public int OrderId { get; set; } 
-        //public Order Order { get; set; } 
+        public int OrderId { get; set; }
+        [ForeignKey("OrderId")]
+        public Order Order { get; set; } = null!;
 
         public int FragranceId { get; set; }
         [ForeignKey("FragranceId")]
@@ -20,6 +21,6 @@ namespace backend.Models
 
         [Required]
         [Column(TypeName = "decimal(6,2)")]
-        public decimal Price { get; set; } // Price at the time of order
+        public decimal Price { get; set; } 
     }
 }
