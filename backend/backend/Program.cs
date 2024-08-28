@@ -112,6 +112,9 @@ builder.Services.AddScoped<GenderService>();
 builder.Services.AddScoped<LongevityService>();
 builder.Services.AddScoped<FragranceService>();
 builder.Services.AddScoped<AuthenticationService>();
+builder.Services.AddScoped<CartService>();
+builder.Services.AddScoped<CartItemService>();
+builder.Services.AddScoped<UserService>();
 
 
 var app = builder.Build();

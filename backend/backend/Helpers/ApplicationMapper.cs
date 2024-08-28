@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using backend.DTOs;
+using backend.DTOs.UserDTOs;
 using backend.Models;
 
 namespace backend.Helpers
@@ -21,6 +22,7 @@ namespace backend.Helpers
             CreateMap<Order, OrderDTO>().ReverseMap();
             CreateMap<CartItem, CartItemDTO>().ReverseMap();
             CreateMap<OrderItem, OrderItemDTO>().ReverseMap();
+            CreateMap<User, UserDTO>().ReverseMap();
 
         }
     }

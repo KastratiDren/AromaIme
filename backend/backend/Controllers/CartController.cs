@@ -33,7 +33,7 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] string userId)
         {
             if (string.IsNullOrEmpty(userId))
-                return BadRequest("UserId can't be null or empty.");
+                return BadRequest("UserId can't be null or empty."); 
 
             var cartDTO = await _cartService.CreateAsync(userId);
             return Ok(cartDTO);
@@ -45,6 +45,9 @@ namespace backend.Controllers
             if (string.IsNullOrEmpty(userId) || cartDTO == null)
                 return BadRequest("UserId or CartDTO can't be null/empty.");
 
+            if (userId != cartDTO.UserId)
+                return BadRequest("The id doesnt match!");
+
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
@@ -55,13 +58,13 @@ namespace backend.Controllers
             return Ok(updatedCart);
         }
 
-        [HttpGet("exists/{userId}")]
-        public async Task<IActionResult> CartExists([FromRoute] string userId)
+        [HttpGet("exists/{id}")]
+        public async Task<IActionResult> CartExists([FromRoute] int id)
         {
-            if (string.IsNullOrEmpty(userId))
-                return BadRequest("UserId can't be null or empty.");
+            if (id == 0)
+                return BadRequest("Id can't be null or empty.");
 
-            var exists = await _cartService.CartExistsAsync(userId);
+            var exists = await _cartService.CartExistsAsync(id);
             return Ok(new { Exists = exists });
         }
     }
