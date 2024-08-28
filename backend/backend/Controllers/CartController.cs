@@ -10,10 +10,12 @@ namespace backend.Controllers
     public class CartController : ControllerBase
     {
         private readonly CartService _cartService;
+        private readonly UserService _userService;
 
-        public CartController(CartService cartService)
+        public CartController(CartService cartService, UserService userService)
         {
             _cartService = cartService;
+            _userService = userService;
         }
 
         [HttpGet("{userId}")]
@@ -22,9 +24,13 @@ namespace backend.Controllers
             if (string.IsNullOrEmpty(userId))
                 return BadRequest("UserId can't be null or empty.");
 
+            var user = await _userService.GetAsync(userId);
+            if (user == null)
+                return NotFound("User doesn't exist!");
+
             var cart = await _cartService.GetAsync(userId);
             if (cart == null)
-                return NotFound();
+                return NotFound("Cart doesn't exist!");
 
             return Ok(cart);
         }
@@ -33,7 +39,11 @@ namespace backend.Controllers
         public async Task<IActionResult> Create([FromBody] string userId)
         {
             if (string.IsNullOrEmpty(userId))
-                return BadRequest("UserId can't be null or empty."); 
+                return BadRequest("UserId can't be null or empty.");
+
+            var user = await _userService.GetAsync(userId);
+            if (user == null)
+                return NotFound("User doesn't exist!");
 
             var cartDTO = await _cartService.CreateAsync(userId);
             return Ok(cartDTO);
@@ -47,6 +57,10 @@ namespace backend.Controllers
 
             if (userId != cartDTO.UserId)
                 return BadRequest("The id doesnt match!");
+
+            var user = await _userService.GetAsync(userId);
+            if (user == null)
+                return NotFound("User doesn't exist!");
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);

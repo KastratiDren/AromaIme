@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using backend.Data;
 using backend.DTOs.UserDTOs;
+using backend.Models; // Make sure to include this if your models are in this namespace
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace backend.Services
@@ -9,31 +11,49 @@ namespace backend.Services
     {
         private readonly AppDbContext _context;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager; 
 
-        public UserService(AppDbContext context, IMapper mapper)
+        public UserService(AppDbContext context, IMapper mapper, UserManager<User> userManager)
         {
             _context = context;
             _mapper = mapper;
+            _userManager = userManager;
         }
 
-        // Method to get all users
+        // Helper method to get the role of a user
+        private async Task<string> GetUserRoleAsync(User user)
+        {
+            var roles = await _userManager.GetRolesAsync(user);
+            return roles.FirstOrDefault() ?? string.Empty;
+        }
+
         public async Task<List<UserDTO>> GetAllAsync()
         {
             var users = await _context.Users.ToListAsync();
-            return _mapper.Map<List<UserDTO>>(users);
+            var userDTOs = new List<UserDTO>();
+
+            foreach (var user in users)
+            {
+                var userDTO = _mapper.Map<UserDTO>(user);
+                userDTO.Role = await GetUserRoleAsync(user); 
+                userDTOs.Add(userDTO);
+            }
+
+            return userDTOs;
         }
 
-        // Method to get a single user by id
         public async Task<UserDTO?> GetAsync(string id)
         {
             var user = await _context.Users.FindAsync(id);
             if (user == null)
                 return null;
 
-            return _mapper.Map<UserDTO>(user);
+            var userDTO = _mapper.Map<UserDTO>(user);
+            userDTO.Role = await GetUserRoleAsync(user);
+            return userDTO;
         }
 
-        // Method to delete a user by id
+
         public async Task<bool> DeleteAsync(string id)
         {
             var user = await _context.Users.FindAsync(id);
