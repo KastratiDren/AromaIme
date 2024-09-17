@@ -28,7 +28,7 @@ const router = createRouter({
       path: '/fragrances/:id',
       name: 'fragrance',
       component: FragranceView,
-      meta: { requiresAuth: true, requiresRole: 'Admin' },
+      meta: { requiresAuth: true },
     },
     {
       path: '/fragrances/add',
